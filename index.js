@@ -18,7 +18,8 @@ const port = process.env.PORT || 3001;
 app.use(express.json());
 morgan.token('data',(req, res) => { return JSON.stringify(req.body)})
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
-app.use(cors())
+app.use(cors());
+app.use(express.static('build'));
 
 app.get('/api/persons', (req, res) => {
    res.json(data);
