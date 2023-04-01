@@ -1,11 +1,7 @@
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
-dotenv.config();
 mongoose.set('strictQuery', false);
 
-// eslint-disable-next-line no-undef
-const url = process.env.MONGODB_URI;
 
 const phoneBookSchema = new mongoose.Schema({
   name: {
@@ -25,7 +21,6 @@ const phoneBookSchema = new mongoose.Schema({
   }
 });
 
-const User = mongoose.model('phonebook', phoneBookSchema);
 
 phoneBookSchema.set('toJSON', {
   transform: (document, returnedObject) => {
@@ -35,15 +30,6 @@ phoneBookSchema.set('toJSON', {
   }
 });
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(url);
-    console.log('connected to MongoDB');
-    return User;
-  } catch (error) {
-    console.log('error connecting to MongoDB: ', error.message);
-  }
-};
-connectDB();
+const User = mongoose.model('phonebook', phoneBookSchema);
 
 export { User };
